@@ -1,5 +1,47 @@
 import { NextResponse } from "next/server"
 
+// دالة تحويل الأرقام لنص عربي (مبسطة)
+function tafqeet(num: number): string {
+  const words: { [key: number]: string } = {
+    0: "صفر",
+    1: "واحد",
+    2: "اثنان",
+    3: "ثلاثة",
+    4: "أربعة",
+    5: "خمسة",
+    6: "ستة",
+    7: "سبعة",
+    8: "ثمانية",
+    9: "تسعة",
+    10: "عشرة",
+    11: "أحد عشر",
+    12: "اثنا عشر",
+    13: "ثلاثة عشر",
+    14: "أربعة عشر",
+    15: "خمسة عشر",
+    20: "عشرون",
+    30: "ثلاثون",
+    40: "أربعون",
+    50: "خمسون",
+    100: "مائة",
+  }
+  return words[num] || num.toString()
+}
+
+export async function POST(req: Request) {
+  const { action, text } = await req.json()
+  let result: any = text
+
+  switch (action) {
+    case "tafqeet":
+      result = text.replace(/\d+/g, (match) => tafqeet(parseInt(match)))
+      break
+    // باقي الأكشنات القديمة
+  }
+
+  return NextResponse.json({ result })
+}
+
 export async function POST(req) {
   const { text = "", action } = await req.json()
   let result = ""
