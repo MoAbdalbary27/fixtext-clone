@@ -9,7 +9,11 @@ export const metadata = {
   description: "A simple FixText clone with Next.js and Tailwind CSS",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={cairo.className}>{children}</body>
