@@ -14,7 +14,7 @@ const ACTIONS = [
   { key: "count", label: "Word/Char Count" },
   { key: "to-json", label: "To JSON" },
   { key: "to-csv", label: "To CSV" },
-  { key: "tafqeet", label: "تفقيط الأرقام" }, // 👈 زر جديد
+  { key: "tafqeet", label: "تفقيط الأرقام" }, // زر التفقيط
 ]
 
 export default function Home() {
@@ -48,8 +48,13 @@ export default function Home() {
     alert("Copied to clipboard!")
   }
 
-  const clearAll = () => { setText(""); setResult(""); setError("") }
+  const clearAll = () => {
+    setText("")
+    setResult("")
+    setError("")
+  }
 
+  // تشيك لو النص عربي
   const isArabic = (txt: string) => /^[\u0600-\u06FF]/.test(txt)
 
   return (
@@ -77,7 +82,7 @@ export default function Home() {
 
         {/* Buttons */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {ACTIONS.map(a => (
+          {ACTIONS.map((a) => (
             <button
               key={a.key}
               onClick={() => handleAction(a.key)}
