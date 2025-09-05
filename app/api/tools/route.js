@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 
-// دالة تحويل الأرقام لنص عربي (مبسطة)
-function tafqeet(num: number): string {
-  const words: { [key: number]: string } = {
+// مكتبة صغيرة للتفقيط العربي
+function numberToArabicWords(num: number): string {
+  const words: Record<number, string> = {
     0: "صفر",
     1: "واحد",
     2: "اثنان",
@@ -24,20 +24,22 @@ function tafqeet(num: number): string {
     40: "أربعون",
     50: "خمسون",
     100: "مائة",
+    1000: "ألف",
   }
   return words[num] || num.toString()
 }
 
 export async function POST(req: Request) {
   const { action, text } = await req.json()
-  let result: any = text
 
-  switch (action) {
-    case "tafqeet":
-      result = text.replace(/\d+/g, (match) => tafqeet(parseInt(match)))
-      break
-    // باقي الأكشنات القديمة
+  if (action === "tafqeet") {
+    const replaced = text.replace(/\d+/g, (m) => numberToArabicWords(parseInt(m)))
+    return NextResponse.json({ result: replaced })
   }
+
+  // باقي الأكشنات زي ما هي
+  return NextResponse.json({ result: text })
+}
 
   return NextResponse.json({ result })
 }
