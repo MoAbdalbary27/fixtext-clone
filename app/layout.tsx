@@ -1,23 +1,16 @@
-import type { Metadata } from "next"
-import { Cairo } from "next/font/google"
-import type { ReactNode } from "react"
+import type { ReactNode } from "react";
 
-const cairo = Cairo({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-})
-
-export const metadata: Metadata = {
-  title: "FixText — Clone",
-  description: "Smart tools to clean and transform your text",
-}
+export const metadata = {
+  title: "FixText Clone",
+  description: "Simple Next.js app",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={cairo.className}>
+    <html lang="ar" dir="rtl">
+      <body>
         {children}
       </body>
     </html>
-  )
+  );
 }
