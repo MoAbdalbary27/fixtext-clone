@@ -14,6 +14,7 @@ const ACTIONS = [
   { key: "count", label: "Word/Char Count" },
   { key: "to-json", label: "To JSON" },
   { key: "to-csv", label: "To CSV" },
+  { key: "tafqeet", label: "تفقيط الأرقام" }, // 👈 زر جديد
 ]
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const handleAction = async (action) => {
+  const handleAction = async (action: string) => {
     setError("")
     setLoading(true)
     try {
@@ -34,7 +35,7 @@ export default function Home() {
       if (!res.ok) throw new Error("Server error " + res.status)
       const data = await res.json()
       setResult(typeof data.result === "string" ? data.result : JSON.stringify(data.result, null, 2))
-    } catch (e) {
+    } catch (e: any) {
       setError(e.message)
     } finally {
       setLoading(false)
@@ -49,8 +50,7 @@ export default function Home() {
 
   const clearAll = () => { setText(""); setResult(""); setError("") }
 
-  // دالة تشيك لو النص عربي
-  const isArabic = (txt) => /^[\u0600-\u06FF]/.test(txt)
+  const isArabic = (txt: string) => /^[\u0600-\u06FF]/.test(txt)
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4">
