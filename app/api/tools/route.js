@@ -30,25 +30,13 @@ function numberToArabicWords(num: number): string {
 }
 
 export async function POST(req: Request) {
-  const { action, text } = await req.json()
-
-  if (action === "tafqeet") {
-    const replaced = text.replace(/\d+/g, (m) => numberToArabicWords(parseInt(m)))
-    return NextResponse.json({ result: replaced })
-  }
-
-  // باقي الأكشنات زي ما هي
-  return NextResponse.json({ result: text })
-}
-
-  return NextResponse.json({ result })
-}
-
-export async function POST(req) {
   const { text = "", action } = await req.json()
   let result = ""
 
   switch (action) {
+    case "tafqeet":
+      result = text.replace(/\d+/g, (m) => numberToArabicWords(parseInt(m)))
+      break
     case "uppercase":
       result = text.toUpperCase()
       break
